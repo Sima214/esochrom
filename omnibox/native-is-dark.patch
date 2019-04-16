@@ -1,0 +1,11 @@
+--- chrome/browser/ui/omnibox/omnibox_theme.cc	2019-04-05 03:49:05.000000000 +0300
++++ chrome/browser/ui/omnibox/omnibox_theme.cc	2019-04-11 16:05:51.082444560 +0300
+@@ -55,7 +55,7 @@
+ 
+   // Note this will use LIGHT for OmniboxTint::NATIVE.
+   // TODO(https://crbug.com/819452): Determine the role GTK should play in this.
+-  bool dark = tint == OmniboxTint::DARK;
++  bool dark = (tint == OmniboxTint::DARK) || (tint == OmniboxTint::NATIVE);
+ 
+   // For high contrast, selected rows use inverted colors to stand out more.
+   ui::NativeTheme* native_theme = ui::NativeTheme::GetInstanceForNativeUi();
