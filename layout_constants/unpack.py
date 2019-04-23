@@ -43,7 +43,7 @@ with open(CONFIGB_PATH, "rb") as f:
         sys.exit(1)
     # Unpack and parse contents of binary file.
     for i in range(len(ATTR_ORDER)):
-        subdata = data[i*4 : (i+1)*4]
+        subdata = data[i*4: (i+1)*4]
         v = struct.unpack("i", subdata)[0]
         parsed_map[ATTR_ORDER[i]] = v
 
