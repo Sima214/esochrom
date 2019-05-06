@@ -1,6 +1,6 @@
---- chrome/browser/ui/layout_constants.cc	2019-04-05 03:49:05.000000000 +0300
-+++ chrome/browser/ui/layout_constants.cc	2019-04-09 22:51:41.569069569 +0300
-@@ -7,13 +7,148 @@
+--- chrome/browser/ui/layout_constants.cc.orig	2019-05-01 01:22:36.000000000 +0300
++++ chrome/browser/ui/layout_constants.cc	2019-05-06 21:45:53.812318538 +0300
+@@ -7,13 +7,163 @@
  #include "base/logging.h"
  #include "ui/base/material_design/material_design_controller.h"
  
@@ -47,6 +47,11 @@
 +  layout_t toolbar_action_view_left;
 +  layout_t toolbar_action_view_bottom;
 +  layout_t toolbar_action_view_right;
++  layout_t location_bar_child_interior_padding;
++  layout_t toolbar_interior_margin_top;
++  layout_t toolbar_interior_margin_left;
++  layout_t toolbar_interior_margin_bottom;
++  layout_t toolbar_interior_margin_right;
 +};
 +
 +// These are the default values.
@@ -116,7 +121,17 @@
 +  // TOOLBAR_ACTION_VIEW_BOTTOM
 +  0,
 +  // TOOLBAR_ACTION_VIEW_RIGHT
-+  0
++  0,
++  // LOCATION_BAR_CHILD_INTERIOR_PADDING
++  3,
++  // TOOLBAR_INTERIOR_MARGIN_TOP
++  4,
++  // TOOLBAR_INTERIOR_MARGIN_LEFT
++  8,
++  // TOOLBAR_INTERIOR_MARGIN_BOTTOM
++  5,
++  // TOOLBAR_INTERIOR_MARGIN_RIGHT
++  8
 +};
 +
 +/**
@@ -153,7 +168,7 @@
      case BOOKMARK_BAR_HEIGHT_NO_OVERLAP:
        return GetCocoaLayoutConstant(BOOKMARK_BAR_HEIGHT) - 2;
      case BOOKMARK_BAR_NTP_PADDING:
-@@ -27,59 +162,49 @@
+@@ -27,59 +177,49 @@
  #endif
  
  int GetLayoutConstant(LayoutConstant constant) {
@@ -180,12 +195,9 @@
 -      // stretching the container view.
 -      return 16;
 +      return configuredState.hosted_app_page_action_icon_size;
-     case LOCATION_BAR_BUBBLE_VERTICAL_PADDING:
--      return 3;
-+      return configuredState.location_bar_bubble_vertical_padding;
      case LOCATION_BAR_BUBBLE_FONT_VERTICAL_PADDING:
 -      return 2;
-+      return configuredState.location_bar_bubble_font_vertical_padding;
++      return configuredState.location_bar_bubble_vertical_padding;
      case LOCATION_BAR_BUBBLE_CORNER_RADIUS:
 -      // TODO(tapted): This should match BubbleBorder::GetBorderRadius() once
 -      // MD is default for secondary UI everywhere. That is, the constant should
@@ -195,6 +207,9 @@
      case LOCATION_BAR_BUBBLE_ANCHOR_VERTICAL_INSET:
 -      return 1;
 +      return configuredState.location_bar_bubble_anchor_vertical_inset;
+     case LOCATION_BAR_CHILD_INTERIOR_PADDING:
+-      return 3;
++      return configuredState.location_bar_child_interior_padding
      case LOCATION_BAR_ELEMENT_PADDING:
 -      return touch_ui ? 3 : 2;
 +      return configuredState.location_bar_element_padding;
@@ -234,7 +249,7 @@
      default:
        break;
    }
-@@ -88,19 +213,30 @@
+@@ -88,22 +228,39 @@
  }
  
  gfx::Insets GetLayoutInsets(LayoutInset inset) {
@@ -258,17 +273,25 @@
 +        configuredState.toolbar_button_right
 +      );
  
--    case TOOLBAR_ACTION_VIEW: {
+     case TOOLBAR_ACTION_VIEW: {
 -      // TODO(afakhry): Unify all toolbar button sizes on all platforms.
 -      // https://crbug.com/822967.
 -      return gfx::Insets(touch_ui ? 10 : 0);
--    }
-+    case TOOLBAR_ACTION_VIEW:
 +      return gfx::Insets(
 +        configuredState.toolbar_action_view_top,
 +        configuredState.toolbar_action_view_left,
 +        configuredState.toolbar_action_view_bottom,
 +        configuredState.toolbar_action_view_right
++      );
+     }
+ 
+     case TOOLBAR_INTERIOR_MARGIN:
+-      return touch_ui ? gfx::Insets() : gfx::Insets(4, 8, 5, 8);
++      return gfx::Insets(
++        configuredstate.toolbar_interior_margin_top,
++        configuredstate.toolbar_interior_margin_left,
++        configuredstate.toolbar_interior_margin_bottom,
++        configuredstate.toolbar_interior_margin_right
 +      );
    }
    NOTREACHED();
