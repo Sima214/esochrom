@@ -2,6 +2,6 @@
 
 ## configurable-layout
 
-This patches exposes the layout constants to the user, through a binary file and loads it at startup.
+This patches exposes the layout constants to the user, through an ini file which gets loaded at startup.
 
 This way they are not compile time constants, just runtime constants.

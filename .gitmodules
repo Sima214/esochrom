@@ -1,0 +1,3 @@
+[submodule "layout_constants/libs"]
+	path = layout_constants/libs
+	url = https://github.com/mattiasgustavsson/libs.git
